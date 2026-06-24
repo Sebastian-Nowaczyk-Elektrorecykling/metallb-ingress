@@ -1,0 +1,20 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: lan-services
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.15.2-192.168.15.254
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ingress-vip
+  namespace: metallb-system
+spec:
+  # Keep the VIP out of the general allocation pool. Only Services that request
+  # this IP explicitly, such as ingress-nginx, should receive it.
+  autoAssign: false
+  addresses:
+    - 192.168.15.1/32
