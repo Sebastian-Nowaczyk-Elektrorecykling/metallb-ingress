@@ -1,0 +1,7 @@
+# L2-only/native backend. This avoids deploying FRR/FRR-K8s components
+# when you are not using BGP.
+speaker:
+  frr:
+    enabled: false
+frrk8s:
+  enabled: false

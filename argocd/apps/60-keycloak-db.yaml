@@ -1,20 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-bootstrap
+  name: keycloak-db
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "60"
 spec:
   project: default
   source:
     repoURL: https://github.com/CHANGE_ME/talos-argocd-metallb-gitops.git
     targetRevision: main
-    path: argocd/apps
+    path: platform/keycloak-db
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: keycloak
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=false
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - SkipDryRunOnMissingResource=true

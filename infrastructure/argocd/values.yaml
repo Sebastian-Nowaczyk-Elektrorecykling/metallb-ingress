@@ -1,0 +1,63 @@
+# This chart takes over the existing argocd namespace and configures Argo CD
+# to use Keycloak as an OIDC provider.
+global:
+  domain: argocd.apps.example.lan
+
+crds:
+  install: true
+  keep: true
+
+configs:
+  params:
+    server.insecure: true
+  cm:
+    url: https://argocd.apps.example.lan
+    admin.enabled: "true"
+    oidc.config: |
+      name: Keycloak
+      issuer: https://auth.apps.example.lan/realms/home
+      clientID: argocd
+      clientSecret: $oidc.keycloak.clientSecret
+      requestedScopes: ["openid", "profile", "email", "groups"]
+  rbac:
+    policy.default: role:readonly
+    scopes: '[groups, email]'
+    policy.csv: |
+      g, argocd-admins, role:admin
+      g, argocd-readonly, role:readonly
+  secret:
+    createSecret: true
+    extra:
+      oidc.keycloak.clientSecret: CHANGE_ME_ARGOCD_OIDC_CLIENT_SECRET
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: HTTP
+    hostname: argocd.apps.example.lan
+    hosts:
+      - argocd.apps.example.lan
+    path: /
+    pathType: Prefix
+    tls: true
+    extraTls:
+      - secretName: argocd-tls
+        hosts:
+          - argocd.apps.example.lan
+  extensions:
+    enabled: false
+
+redis-ha:
+  enabled: false
+
+repoServer:
+  autoscaling:
+    enabled: false
+
+applicationSet:
+  enabled: true
+
+notifications:
+  enabled: false

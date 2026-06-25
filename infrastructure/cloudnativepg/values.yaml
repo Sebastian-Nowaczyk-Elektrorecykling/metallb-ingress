@@ -1,0 +1,4 @@
+# Operator-only install. PostgreSQL clusters are declared separately under platform/*-db.
+replicaCount: 1
+monitoring:
+  podMonitorEnabled: false

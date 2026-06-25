@@ -1,0 +1,29 @@
+crds:
+  enabled: true
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+csi:
+  enableRbdDriver: true
+  enableCephfsDriver: true
+  enableCephfsSnapshotter: true
+  enableRBDSnapshotter: true
+  csiRBDProvisionerResource: |
+    - name : csi-provisioner
+      resource:
+        requests:
+          memory: 128Mi
+          cpu: 100m
+        limits:
+          memory: 512Mi
+  csiRBDPluginResource: |
+    - name : csi-rbdplugin
+      resource:
+        requests:
+          memory: 128Mi
+          cpu: 100m
+        limits:
+          memory: 512Mi

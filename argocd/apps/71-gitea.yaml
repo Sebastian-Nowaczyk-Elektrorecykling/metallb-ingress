@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops-gitea
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "90"
+spec:
+  project: default
+  sources:
+    - repoURL: https://dl.gitea.com/charts/
+      chart: gitea
+      targetRevision: 12.6.0
+      helm:
+        releaseName: gitops-gitea
+        valueFiles:
+          - $values/platform/gitea/values.yaml
+    - repoURL: https://github.com/CHANGE_ME/talos-argocd-metallb-gitops.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitops-gitea
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - SkipDryRunOnMissingResource=true

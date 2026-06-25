@@ -1,0 +1,123 @@
+replicaCount: 1
+clusterDomain: cluster.local
+
+image:
+  rootless: true
+
+strategy:
+  type: Recreate
+
+persistence:
+  enabled: true
+  create: true
+  mount: true
+  claimName: gitea-shared-storage
+  size: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClass: rook-ceph-block
+
+service:
+  http:
+    type: ClusterIP
+    port: 3000
+  ssh:
+    type: ClusterIP
+    port: 22
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: git.apps.example.lan
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gitea-tls
+      hosts:
+        - git.apps.example.lan
+
+postgresql-ha:
+  enabled: false
+postgresql:
+  enabled: false
+redis-cluster:
+  enabled: false
+redis:
+  enabled: false
+valkey-cluster:
+  enabled: false
+valkey:
+  enabled: false
+
+gitea:
+  admin:
+    username: gitea_admin
+    email: admin@apps.example.lan
+    existingSecret: gitea-admin
+    passwordMode: initialOnlyRequireReset
+
+  metrics:
+    enabled: false
+
+  oauth:
+    - name: keycloak
+      provider: openidConnect
+      existingSecret: gitea-oidc
+      autoDiscoverUrl: https://auth.apps.example.lan/realms/home/.well-known/openid-configuration
+      scopes: openid email profile groups
+      groupClaimName: groups
+      adminGroup: gitea-admins
+      # Uncomment these two lines to require Keycloak group membership before login.
+      # Assign admins to both gitea-admins and gitea-users if you enable it.
+      # requiredClaimName: groups
+      # requiredClaimValue: gitea-users
+
+  config:
+    APP_NAME: "GitOps Gitea"
+    RUN_MODE: prod
+    server:
+      DOMAIN: git.apps.example.lan
+      ROOT_URL: https://git.apps.example.lan/
+      SSH_DOMAIN: git.apps.example.lan
+      SSH_PORT: 22
+      START_SSH_SERVER: true
+    database:
+      DB_TYPE: postgres
+      HOST: gitea-db-rw.gitops-gitea.svc.cluster.local:5432
+      NAME: gitea
+      USER: gitea
+      LOG_SQL: false
+      SSL_MODE: disable
+    service:
+      DISABLE_REGISTRATION: false
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+      SHOW_REGISTRATION_BUTTON: false
+      REQUIRE_SIGNIN_VIEW: true
+      DEFAULT_KEEP_EMAIL_PRIVATE: true
+    openid:
+      ENABLE_OPENID_SIGNIN: false
+      ENABLE_OPENID_SIGNUP: true
+      WHITELISTED_URIS: auth.apps.example.lan
+    oauth2:
+      ENABLED: true
+    oauth2_client:
+      ENABLE_AUTO_REGISTRATION: true
+      ACCOUNT_LINKING: auto
+      OPENID_CONNECT_SCOPES: openid email profile groups
+    repository:
+      DEFAULT_PRIVATE: private
+      DEFAULT_BRANCH: main
+    webhook:
+      ALLOWED_HOST_LIST: private
+    log:
+      LEVEL: Info
+
+  additionalConfigFromEnvs:
+    - name: GITEA__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: gitea-db-app
+          key: password

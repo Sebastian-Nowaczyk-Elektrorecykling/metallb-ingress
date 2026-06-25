@@ -2,3 +2,6 @@
 .idea/
 .vscode/
 *.swp
+homelab-root-ca.crt
+*.agekey
+*.dec

@@ -1,5 +1,18 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - metallb.yaml
-  - ingress-nginx.yaml
+  - 00-argocd-platform-config.yaml
+  - 01-argocd.yaml
+  - 10-metallb.yaml
+  - 15-cert-manager.yaml
+  - 20-ingress-nginx.yaml
+  - 30-rook-ceph-operator.yaml
+  - 31-rook-ceph-cluster.yaml
+  - 40-cloudnativepg.yaml
+  - 50-platform-secrets.yaml
+  - 55-certificates.yaml
+  - 60-keycloak-db.yaml
+  - 61-keycloak.yaml
+  - 70-gitea-db.yaml
+  - 71-gitea.yaml
+  - 80-ceph-dashboard-sso.yaml

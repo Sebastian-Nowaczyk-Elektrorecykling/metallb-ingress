@@ -1,0 +1,36 @@
+# This protects the Ceph dashboard with Keycloak before traffic reaches the dashboard.
+# The Ceph dashboard still keeps its own admin account internally; this is an SSO gate.
+config:
+  existingSecret: ceph-dashboard-oauth2-proxy
+  configFile: |-
+    provider = "oidc"
+    oidc_issuer_url = "https://auth.apps.example.lan/realms/home"
+    redirect_url = "https://ceph.apps.example.lan/oauth2/callback"
+    email_domains = [ "*" ]
+    scope = "openid email profile groups"
+    cookie_secure = true
+    reverse_proxy = true
+    set_xauthrequest = true
+    pass_access_token = true
+    pass_authorization_header = true
+    upstreams = [ "https://rook-ceph-mgr-dashboard.rook-ceph.svc.cluster.local:8443/" ]
+    ssl_upstream_insecure_skip_verify = true
+
+extraArgs:
+  whitelist-domain: .apps.example.lan
+  cookie-domain: .apps.example.lan
+
+ingress:
+  enabled: true
+  className: nginx
+  path: /
+  pathType: Prefix
+  hosts:
+    - ceph.apps.example.lan
+  tls:
+    - secretName: ceph-dashboard-sso-tls
+      hosts:
+        - ceph.apps.example.lan
+
+service:
+  type: ClusterIP

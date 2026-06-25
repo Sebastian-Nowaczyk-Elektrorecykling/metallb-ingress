@@ -1,20 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-bootstrap
+  name: platform-certificates
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "55"
 spec:
   project: default
   source:
     repoURL: https://github.com/CHANGE_ME/talos-argocd-metallb-gitops.git
     targetRevision: main
-    path: argocd/apps
+    path: infrastructure/certificates
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=false
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - SkipDryRunOnMissingResource=true
