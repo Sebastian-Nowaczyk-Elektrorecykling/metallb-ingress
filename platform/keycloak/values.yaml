@@ -25,13 +25,13 @@ externalDatabase:
 ingress:
   enabled: true
   ingressClassName: nginx
-  hostname: auth.apps.example.lan
+  hostname: auth.home.arpa
   path: /
   pathType: Prefix
   tls: true
   extraTls:
     - hosts:
-        - auth.apps.example.lan
+        - auth.home.arpa
       secretName: keycloak-tls
 
 metrics:
@@ -87,16 +87,16 @@ keycloakConfigCli:
           protocol: openid-connect
           publicClient: false
           clientAuthenticatorType: client-secret
-          secret: CHANGE_ME_ARGOCD_OIDC_CLIENT_SECRET
+          secret: zS7gNIED4ql_8TWyB4VtmmXTKthLPFWRWJA3bYlGRQ2Wd4ujfdMINYE_xhheFR7b
           standardFlowEnabled: true
           directAccessGrantsEnabled: true
           serviceAccountsEnabled: false
           fullScopeAllowed: true
           redirectUris:
-            - https://argocd.apps.example.lan/auth/callback
-            - https://argocd.apps.example.lan/api/dex/callback
+            - https://argocd.home.arpa/auth/callback
+            - https://argocd.home.arpa/api/dex/callback
           webOrigins:
-            - https://argocd.apps.example.lan
+            - https://argocd.home.arpa
           defaultClientScopes:
             - web-origins
             - acr
@@ -117,15 +117,15 @@ keycloakConfigCli:
           protocol: openid-connect
           publicClient: false
           clientAuthenticatorType: client-secret
-          secret: CHANGE_ME_GITEA_OIDC_CLIENT_SECRET
+          secret: n66u5xJQ-sY6f7GmjQfu3Yy1qwRe4iqK6Zb-18S1wMXrnFR2LWWxqV9con_cp0a_
           standardFlowEnabled: true
           directAccessGrantsEnabled: false
           serviceAccountsEnabled: false
           fullScopeAllowed: true
           redirectUris:
-            - https://git.apps.example.lan/user/oauth2/keycloak/callback
+            - https://git.home.arpa/user/oauth2/keycloak/callback
           webOrigins:
-            - https://git.apps.example.lan
+            - https://git.home.arpa
           defaultClientScopes:
             - web-origins
             - acr
@@ -146,15 +146,15 @@ keycloakConfigCli:
           protocol: openid-connect
           publicClient: false
           clientAuthenticatorType: client-secret
-          secret: CHANGE_ME_CEPH_DASHBOARD_OIDC_CLIENT_SECRET
+          secret: R54-zXEQ-18aTj1jwcx31sD5dJdSZtXAiwaCrvsD9MvKnmrA9YTI-XZDlkKKewUZ
           standardFlowEnabled: true
           directAccessGrantsEnabled: false
           serviceAccountsEnabled: false
           fullScopeAllowed: true
           redirectUris:
-            - https://ceph.apps.example.lan/oauth2/callback
+            - https://ceph.home.arpa/oauth2/callback
           webOrigins:
-            - https://ceph.apps.example.lan
+            - https://ceph.home.arpa
           defaultClientScopes:
             - web-origins
             - acr

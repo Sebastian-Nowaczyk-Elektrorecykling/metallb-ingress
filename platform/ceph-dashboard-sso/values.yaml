@@ -4,8 +4,8 @@ config:
   existingSecret: ceph-dashboard-oauth2-proxy
   configFile: |-
     provider = "oidc"
-    oidc_issuer_url = "https://auth.apps.example.lan/realms/home"
-    redirect_url = "https://ceph.apps.example.lan/oauth2/callback"
+    oidc_issuer_url = "https://auth.home.arpa/realms/home"
+    redirect_url = "https://ceph.home.arpa/oauth2/callback"
     email_domains = [ "*" ]
     scope = "openid email profile groups"
     cookie_secure = true
@@ -17,8 +17,8 @@ config:
     ssl_upstream_insecure_skip_verify = true
 
 extraArgs:
-  whitelist-domain: .apps.example.lan
-  cookie-domain: .apps.example.lan
+  whitelist-domain: .home.arpa
+  cookie-domain: .home.arpa
 
 ingress:
   enabled: true
@@ -26,11 +26,11 @@ ingress:
   path: /
   pathType: Prefix
   hosts:
-    - ceph.apps.example.lan
+    - ceph.home.arpa
   tls:
     - secretName: ceph-dashboard-sso-tls
       hosts:
-        - ceph.apps.example.lan
+        - ceph.home.arpa
 
 service:
   type: ClusterIP

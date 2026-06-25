@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: argocd-tls
   dnsNames:
-    - argocd.apps.example.lan
+    - argocd.home.arpa
   issuerRef:
     name: homelab-ca
     kind: ClusterIssuer
@@ -20,7 +20,7 @@ metadata:
 spec:
   secretName: keycloak-tls
   dnsNames:
-    - auth.apps.example.lan
+    - auth.home.arpa
   issuerRef:
     name: homelab-ca
     kind: ClusterIssuer
@@ -34,7 +34,7 @@ metadata:
 spec:
   secretName: gitea-tls
   dnsNames:
-    - git.apps.example.lan
+    - git.home.arpa
   issuerRef:
     name: homelab-ca
     kind: ClusterIssuer
@@ -48,7 +48,7 @@ metadata:
 spec:
   secretName: ceph-dashboard-sso-tls
   dnsNames:
-    - ceph.apps.example.lan
+    - ceph.home.arpa
   issuerRef:
     name: homelab-ca
     kind: ClusterIssuer

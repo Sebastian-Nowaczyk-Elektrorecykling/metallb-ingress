@@ -15,7 +15,7 @@ spec:
         releaseName: cloudnativepg
         valueFiles:
           - $values/infrastructure/cloudnativepg/values.yaml
-    - repoURL: https://github.com/CHANGE_ME/talos-argocd-metallb-gitops.git
+    - repoURL: https://github.com/Sebastian-Nowaczyk-Elektrorecykling/metallb-ingress.git
       targetRevision: main
       ref: values
   destination:

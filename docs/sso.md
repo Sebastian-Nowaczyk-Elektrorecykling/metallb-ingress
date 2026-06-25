@@ -11,20 +11,20 @@ home
 Issuer:
 
 ```text
-https://auth.apps.example.lan/realms/home
+https://auth.home.arpa/realms/home
 ```
 
 OIDC clients:
 
 ```text
 argocd
-  redirect: https://argocd.apps.example.lan/auth/callback
+  redirect: https://argocd.home.arpa/auth/callback
 
 gitea
-  redirect: https://git.apps.example.lan/user/oauth2/keycloak/callback
+  redirect: https://git.home.arpa/user/oauth2/keycloak/callback
 
 ceph-dashboard
-  redirect: https://ceph.apps.example.lan/oauth2/callback
+  redirect: https://ceph.home.arpa/oauth2/callback
 ```
 
 Groups created by Keycloak:

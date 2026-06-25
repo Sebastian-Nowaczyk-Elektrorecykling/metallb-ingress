@@ -30,14 +30,14 @@ ingress:
   className: nginx
   annotations: {}
   hosts:
-    - host: git.apps.example.lan
+    - host: git.home.arpa
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: gitea-tls
       hosts:
-        - git.apps.example.lan
+        - git.home.arpa
 
 postgresql-ha:
   enabled: false
@@ -55,7 +55,7 @@ valkey:
 gitea:
   admin:
     username: gitea_admin
-    email: admin@apps.example.lan
+    email: admin@home.arpa
     existingSecret: gitea-admin
     passwordMode: initialOnlyRequireReset
 
@@ -66,7 +66,7 @@ gitea:
     - name: keycloak
       provider: openidConnect
       existingSecret: gitea-oidc
-      autoDiscoverUrl: https://auth.apps.example.lan/realms/home/.well-known/openid-configuration
+      autoDiscoverUrl: https://auth.home.arpa/realms/home/.well-known/openid-configuration
       scopes: openid email profile groups
       groupClaimName: groups
       adminGroup: gitea-admins
@@ -79,9 +79,9 @@ gitea:
     APP_NAME: "GitOps Gitea"
     RUN_MODE: prod
     server:
-      DOMAIN: git.apps.example.lan
-      ROOT_URL: https://git.apps.example.lan/
-      SSH_DOMAIN: git.apps.example.lan
+      DOMAIN: git.home.arpa
+      ROOT_URL: https://git.home.arpa/
+      SSH_DOMAIN: git.home.arpa
       SSH_PORT: 22
       START_SSH_SERVER: true
     database:
@@ -100,7 +100,7 @@ gitea:
     openid:
       ENABLE_OPENID_SIGNIN: false
       ENABLE_OPENID_SIGNUP: true
-      WHITELISTED_URIS: auth.apps.example.lan
+      WHITELISTED_URIS: auth.home.arpa
     oauth2:
       ENABLED: true
     oauth2_client:

@@ -33,19 +33,19 @@ Plain Kubernetes Secret manifests are included with placeholders so the repo is 
 
 ## Public URLs
 
-The default internal domain is `apps.example.lan`.
+The default internal domain is `home.arpa`.
 
 | Service | URL |
 |---|---|
-| Keycloak | `https://auth.apps.example.lan` |
-| Argo CD | `https://argocd.apps.example.lan` |
-| Gitea | `https://git.apps.example.lan` |
-| Ceph dashboard SSO gate | `https://ceph.apps.example.lan` |
+| Keycloak | `https://auth.home.arpa` |
+| Argo CD | `https://argocd.home.arpa` |
+| Gitea | `https://git.home.arpa` |
+| Ceph dashboard SSO gate | `https://ceph.home.arpa` |
 
 Set local DNS to point the wildcard at the ingress VIP:
 
 ```text
-*.apps.example.lan.  A  192.168.15.1
+*.home.arpa.  A  192.168.15.1
 ```
 
 ## Repository layout
@@ -157,9 +157,9 @@ Configured clients:
 
 | Client | Redirect URI |
 |---|---|
-| `argocd` | `https://argocd.apps.example.lan/auth/callback` |
-| `gitea` | `https://git.apps.example.lan/user/oauth2/keycloak/callback` |
-| `ceph-dashboard` | `https://ceph.apps.example.lan/oauth2/callback` |
+| `argocd` | `https://argocd.home.arpa/auth/callback` |
+| `gitea` | `https://git.home.arpa/user/oauth2/keycloak/callback` |
+| `ceph-dashboard` | `https://ceph.home.arpa/oauth2/callback` |
 
 Configured groups:
 

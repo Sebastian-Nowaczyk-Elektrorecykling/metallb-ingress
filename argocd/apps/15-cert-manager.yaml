@@ -15,7 +15,7 @@ spec:
         releaseName: cert-manager
         valueFiles:
           - $values/infrastructure/cert-manager/values.yaml
-    - repoURL: https://github.com/CHANGE_ME/talos-argocd-metallb-gitops.git
+    - repoURL: https://github.com/Sebastian-Nowaczyk-Elektrorecykling/metallb-ingress.git
       targetRevision: main
       ref: values
   destination:

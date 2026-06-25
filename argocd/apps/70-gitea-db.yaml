@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/talos-argocd-metallb-gitops.git
+    repoURL: https://github.com/Sebastian-Nowaczyk-Elektrorecykling/metallb-ingress.git
     targetRevision: main
     path: platform/gitea-db
   destination:

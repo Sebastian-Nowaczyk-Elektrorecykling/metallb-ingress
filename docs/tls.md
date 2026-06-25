@@ -11,10 +11,10 @@ ClusterIssuer/homelab-ca
 It then creates TLS certificates for:
 
 ```text
-argocd.apps.example.lan
-keycloak: auth.apps.example.lan
-git.apps.example.lan
-ceph.apps.example.lan
+argocd.home.arpa
+keycloak: auth.home.arpa
+git.home.arpa
+ceph.home.arpa
 ```
 
 Export the root CA after the certificates app has synced:
